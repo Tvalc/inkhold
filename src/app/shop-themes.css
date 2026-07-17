@@ -93,32 +93,46 @@ body:has(.shop-theme-stage) .site-footer {
 .ink-bg-cell {
   position: relative;
   overflow: hidden;
+  background: #0a0a0a;
 }
 
 .ink-bg-img {
-  object-fit: cover;
-  transform: scale(1.04);
-  filter: saturate(1.15) contrast(1.08);
-  animation: inkDrift 18s ease-in-out infinite alternate;
+  object-fit: contain;
+  object-position: center;
+  transform: none;
+  filter: saturate(1.08) contrast(1.05);
+  animation: none;
 }
 
-.ink-bg-cell:nth-child(odd) .ink-bg-img {
-  animation-duration: 22s;
-  object-position: 30% 40%;
-}
-
+.ink-bg-cell:nth-child(odd) .ink-bg-img,
 .ink-bg-cell:nth-child(3n) .ink-bg-img {
-  animation-duration: 26s;
-  object-position: 70% 60%;
+  animation: none;
+  object-position: center;
 }
 
-@keyframes inkDrift {
-  from {
-    transform: scale(1.04) translate(0, 0);
-  }
-  to {
-    transform: scale(1.12) translate(-2%, 1%);
-  }
+.ink-rail-cell {
+  position: relative;
+  flex: 1 1 0;
+  min-height: 0;
+  overflow: hidden;
+  background: #0a0a0a;
+}
+
+.ink-rail-img {
+  object-fit: contain;
+  object-position: center;
+  transition: transform 0.45s ease;
+}
+
+.ink-rail-cell:hover .ink-rail-img {
+  transform: scale(1.03);
+}
+
+.ink-rail-left .ink-rail-cell:nth-child(1) .ink-rail-img,
+.ink-rail-left .ink-rail-cell:nth-child(2) .ink-rail-img,
+.ink-rail-right .ink-rail-cell:nth-child(1) .ink-rail-img,
+.ink-rail-right .ink-rail-cell:nth-child(3) .ink-rail-img {
+  object-position: center;
 }
 
 .ink-bg-veil {
@@ -127,13 +141,13 @@ body:has(.shop-theme-stage) .site-footer {
   z-index: 1;
   pointer-events: none;
   background:
-    radial-gradient(ellipse 55% 70% at 50% 40%, rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.72) 70%),
+    radial-gradient(ellipse 50% 65% at 50% 42%, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.55) 75%),
     linear-gradient(
       90deg,
-      rgba(0, 0, 0, 0.2) 0%,
-      transparent 18%,
-      transparent 82%,
-      rgba(0, 0, 0, 0.2) 100%
+      rgba(0, 0, 0, 0.12) 0%,
+      transparent 20%,
+      transparent 80%,
+      rgba(0, 0, 0, 0.12) 100%
     );
 }
 
@@ -145,35 +159,6 @@ body:has(.shop-theme-stage) .site-footer {
   gap: 4px;
   padding: 4px;
   min-height: calc(100vh - 4.25rem);
-}
-
-.ink-rail-cell {
-  position: relative;
-  flex: 1 1 0;
-  min-height: 0;
-  overflow: hidden;
-}
-
-.ink-rail-img {
-  object-fit: cover;
-  transition: transform 0.6s ease;
-}
-
-.ink-rail-cell:hover .ink-rail-img {
-  transform: scale(1.06);
-}
-
-.ink-rail-left .ink-rail-cell:nth-child(1) .ink-rail-img {
-  object-position: 25% 30%;
-}
-.ink-rail-left .ink-rail-cell:nth-child(2) .ink-rail-img {
-  object-position: 60% 50%;
-}
-.ink-rail-right .ink-rail-cell:nth-child(1) .ink-rail-img {
-  object-position: 75% 20%;
-}
-.ink-rail-right .ink-rail-cell:nth-child(3) .ink-rail-img {
-  object-position: 40% 70%;
 }
 
 .ink-center {
@@ -524,10 +509,11 @@ body:has(.shop-theme-stage) .site-footer {
 .home-thumb {
   width: 100%;
   aspect-ratio: 4 / 3;
-  object-fit: cover;
+  object-fit: contain;
+  object-position: center;
   display: block;
   margin: 0 0 0.85rem;
-  background: #111;
+  background: #0a0a0a;
 }
 
 .home-card-hook {
