@@ -131,7 +131,7 @@ export function BookingForm({ artist }: Props) {
         <textarea
           name="description"
           required
-          rows={4}
+          rows={3}
           placeholder={artist.form.descriptionPlaceholder}
         />
       </label>
