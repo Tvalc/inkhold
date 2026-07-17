@@ -234,6 +234,31 @@ a {
   line-height: 1.55;
 }
 
+.hood-block {
+  margin-bottom: 2.75rem;
+}
+
+.hood-title {
+  font-family: var(--font-display), serif;
+  font-size: 1.35rem;
+  font-weight: 400;
+  margin: 0 0 1rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid var(--line);
+  color: var(--ink-soft);
+}
+
+.slug-hint {
+  font-family: ui-monospace, monospace;
+  font-size: 0.78rem;
+  letter-spacing: 0.02em;
+}
+
+.demo-banner {
+  border-left-color: var(--steel);
+  background: rgba(74, 93, 106, 0.12);
+}
+
 .artist-list {
   display: grid;
   gap: 1.25rem;

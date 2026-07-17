@@ -1,168 +1,121 @@
 import Link from "next/link";
+import { DEMO_ARTISTS, artistsByNeighborhood } from "@/lib/artists";
+
+const PITCH: Record<string, string> = {
+  "alleged-arts":
+    "Appointment-only contemporary — perfect bio-link wedge. Start with resident artists, not the whole OS.",
+  "sorry-sorry":
+    "Locked small studio — digital intake + deposit cuts door chaos.",
+  "elevation-project":
+    "Indie founder energy. Pitch a gallery-matched booking link.",
+  "facet-and-form":
+    "Hospitality-grade deposit + waiver for a luxury atelier.",
+  "true-love":
+    "Sell individual artists who still DM-book — not a desk rip-replace.",
+  "dark-age": "Custom appointment deposits; leave flash walk-ins alone.",
+  supergenius: "Roster artists who want a bio link without shop software drama.",
+  "laughing-buddha": "Busy floor — one artist Venmo chase is enough of a yes.",
+  "seattle-tattoo-emporium": "Custom projects that need a real deposit before stencil day.",
+  "hurricane-violet": "Solo speed — white-glove first link setup on their phone.",
+  "wren-cavanaugh": "Independent IG operator — fastest close path.",
+  "central-district-studio": "Appointment-only CD energy; ask for guest-artist intros.",
+  "hidden-hand": "Lead with custom appointment deposits, not Friday flash.",
+  "crow-and-pitcher": "Private Fremont studio — quiet appointment days.",
+  "slave-to-the-needle": "Ask who still collects deposits on Venmo.",
+  "anchor-tattoo": "Two-artist shop — deposits without enterprise software.",
+  "rabid-hands": "Appointment holds; walk-ins stay separate.",
+  "maya-rivera": "Generic product demo for cold pitches.",
+  "jordan-lee": "Generic Ballard product demo.",
+  "sam-okada": "Generic Fremont private-studio demo.",
+};
 
 export default function SeattlePlanPage() {
+  const groups = artistsByNeighborhood();
+
   return (
     <div className="page-shell wide">
       <p className="page-kicker">Go-to-market</p>
       <h1 className="page-title">Seattle launch plan</h1>
       <p className="page-sub">
-        30-day path to first paying artists. Wedge: solo / private-studio
-        artists who still chase deposits over Venmo + Instagram DMs. Full
-        numbers and outreach list also live in the InkHold Seattle canvas
-        beside chat.
+        {DEMO_ARTISTS.length} live demo pages — open the shop&apos;s URL on
+        your phone when you walk in. Wedge: solo / private artists still chasing
+        Venmo deposits.
       </p>
 
       <div className="plan-block">
         <h3>Offer</h3>
         <ul>
           <li>
-            <strong>$29/mo</strong> solo artist — unlimited booking links,
-            Stripe deposits, digital waiver, basic dashboard
+            <strong>$29/mo</strong> solo · <strong>$79/mo</strong> shop ≤5
+            artists
           </li>
           <li>
-            <strong>$79/mo</strong> small shop (up to 5 artists) — shared
-            studio page later
+            Founding: first 10 Seattle artists free 60 days, then $19/mo year
+            one
           </li>
-          <li>
-            Founding Seattle deal: <strong>first 10 artists free for 60
-            days</strong>, then $19/mo locked for year one
-          </li>
-          <li>
-            Positioning: no per-booking tax on deposits (unlike some studio
-            OS tools) — you keep deposit economics clean
-          </li>
+          <li>No per-booking tax on deposits in the founding pitch</li>
         </ul>
       </div>
 
       <div className="plan-block">
-        <h3>Month-1 revenue targets</h3>
+        <h3>Month-1 targets</h3>
         <ul>
-          <li>
-            Conservative: 5 founding artists converting after trial → ~$95 MRR
-          </li>
-          <li>Base: 12 solo at $29 → ~$350 MRR</li>
-          <li>Stretch: 20 solo + 2 shops → ~$740 MRR</li>
-          <li>
-            Realistic cash in door by day 30 if you walk shops: $200–600
-            (founding + early paid)
-          </li>
+          <li>Conservative ~$95 MRR · Base ~$350 · Stretch ~$740</li>
+          <li>Day-30 cash if you walk shops: $200–600</li>
         </ul>
       </div>
 
       <div className="plan-block">
-        <h3>Weekly cadence</h3>
-        <ol>
-          <li>
-            <strong>Week 1:</strong> Ship demo link, Stripe test keys, 1-page
-            leave-behind PDF. Visit 8 Capitol Hill / Central studios in person.
-          </li>
-          <li>
-            <strong>Week 2:</strong> Ballard + Fremont walk. DM 40 Instagram
-            artists with “saw your booking highlight — 2-min deposit link”
-            note. Goal: 3 live founding users.
-          </li>
-          <li>
-            <strong>Week 3:</strong> Collect no-show stories, tighten waiver
-            copy with one shop’s real policy. Ask for intros to guest artists.
-          </li>
-          <li>
-            <strong>Week 4:</strong> Convert founding → paid. Post 2 local
-            case-study IG carousels. Book coffee with one shop manager who
-            hates their current software.
-          </li>
-        </ol>
+        <h3>Live demo pages (tap to open)</h3>
+        {groups.map((group) => (
+          <div key={group.neighborhood} style={{ marginBottom: "1.5rem" }}>
+            <h4
+              style={{
+                fontFamily: "var(--font-display), serif",
+                fontSize: "1.15rem",
+                fontWeight: 400,
+                margin: "0 0 0.75rem",
+              }}
+            >
+              {group.neighborhood}
+            </h4>
+            <div className="target-grid">
+              {group.artists.map((a) => (
+                <div className="target-item" key={a.slug}>
+                  <strong>
+                    <Link href={`/a/${a.slug}`}>{a.studio}</Link>
+                  </strong>
+                  <span>
+                    {a.name} · /a/{a.slug}
+                  </span>
+                  <p>{PITCH[a.slug] ?? a.bio}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
       </div>
 
       <div className="plan-block">
-        <h3>Priority outreach (appointment / private first)</h3>
-        <div className="target-grid">
-          <div className="target-item">
-            <strong>Alleged Arts</strong>
-            <span>Capitol Hill · Private · Queer-owned</span>
-            <p>
-              Appointment-only contemporary — perfect bio-link wedge. Start
-              with resident artists, not “sell the whole OS.”
-            </p>
-          </div>
-          <div className="target-item">
-            <strong>Sorry Sorry Tattoo</strong>
-            <span>Capitol Hill · Locked studio</span>
-            <p>
-              Small room, overlapping conversations — digital intake + deposit
-              cuts front-door chaos.
-            </p>
-          </div>
-          <div className="target-item">
-            <strong>Elevation Project</strong>
-            <span>Capitol Hill · Private + gallery</span>
-            <p>
-              Independent founder energy. Pitch as “your own booking link that
-              matches the gallery vibe.”
-            </p>
-          </div>
-          <div className="target-item">
-            <strong>Facet and Form</strong>
-            <span>Capitol Hill · Tattoo + piercing atelier</span>
-            <p>
-              High-touch luxury — deposits + waivers fit their hospitality
-              story. Ask for artist intros.
-            </p>
-          </div>
-          <div className="target-item">
-            <strong>True Love Tattoo</strong>
-            <span>Capitol Hill · LGBTQIA-centric</span>
-            <p>
-              Established shop — sell individual artists who still DM-book, not
-              a full rip-replace of their desk.
-            </p>
-          </div>
-          <div className="target-item">
-            <strong>Hurricane Violet / Wren Cavanaugh</strong>
-            <span>Independent · IG-forward</span>
-            <p>
-              Solo operators = fastest yes. Offer white-glove setup of their
-              first link in person.
-            </p>
-          </div>
-          <div className="target-item">
-            <strong>Hidden Hand / Crow & Pitcher</strong>
-            <span>Fremont</span>
-            <p>
-              Mix of walk-in and private. Lead with custom-appointment
-              deposits, not flash walk-ins.
-            </p>
-          </div>
-          <div className="target-item">
-            <strong>Slave to the Needle / Anchor / Rabid Hands</strong>
-            <span>Ballard</span>
-            <p>
-              Walk shops Tue–Thu afternoon. Ask “who still collects deposits on
-              Venmo?” — that’s your buyer.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <div className="plan-block">
-        <h3>In-person script (30 seconds)</h3>
+        <h3>30-second script</h3>
         <ul>
           <li>
             “I built a bio link that takes the deposit and waiver before they
             ever text you.”
           </li>
           <li>
-            “Demo is live — take 90 seconds on your phone. Founding Seattle
-            artists get 60 days free.”
+            “Here’s yours already live — 90 seconds on your phone. Founding
+            Seattle artists get 60 days free.”
           </li>
           <li>
-            “I’m not replacing your whole shop software. Just the Venmo chase.”
+            “I’m not replacing your shop software. Just the Venmo chase.”
           </li>
         </ul>
       </div>
 
       <p>
-        <Link href="/a/maya-rivera" className="btn-primary">
-          Open demo booking
+        <Link href="/#demo" className="btn-primary">
+          All {DEMO_ARTISTS.length} demos on home
         </Link>
       </p>
     </div>
