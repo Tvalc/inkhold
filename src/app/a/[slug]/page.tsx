@@ -3,7 +3,6 @@ import Link from "next/link";
 import { DEMO_ARTISTS, getArtist, formatMoney } from "@/lib/artists";
 import { BookingForm } from "@/components/BookingForm";
 import { InkStage } from "@/components/InkStage";
-import { imagesFor } from "@/lib/client-images";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -23,54 +22,45 @@ export default async function ArtistBookingPage({
   const artist = getArtist(slug);
   if (!artist) notFound();
 
-  const themeClass = `theme-${artist.theme}`;
-  const hasInk = imagesFor(artist.slug).length > 0;
-
   return (
-    <div className={`shop-theme shop-theme-stage ${themeClass}`}>
+    <div className={`shop-theme shop-theme-stage theme-${artist.theme}`}>
       <InkStage artist={artist}>
-        <div className="ink-panel">
-          <p className="ink-kicker">
-            {artist.neighborhood} · {artist.instagram}
+        <div className="book-panel">
+          <p className="book-kicker">
+            {artist.neighborhood}
+            <span aria-hidden> · </span>
+            {artist.instagram}
           </p>
-          <h1 className="ink-studio">{artist.studio}</h1>
-          <p className="ink-artist">
+          <h1 className="book-studio">{artist.studio}</h1>
+          <p className="book-meta">
             {artist.name}
-            {artist.pronouns ? ` (${artist.pronouns})` : ""} ·{" "}
+            {artist.pronouns ? ` · ${artist.pronouns}` : ""}
+            <span className="book-dot" aria-hidden>
+              ·
+            </span>
             {artist.specialty}
           </p>
-          <p className="ink-headline">{artist.headline}</p>
-
-          <div className="ink-tags">
-            {artist.tags.slice(0, 3).map((t) => (
-              <span key={t}>{t}</span>
-            ))}
-          </div>
-
-          <p className="ink-demo-note">
-            InkHold demo · {formatMoney(artist.depositCents)} hold ·{" "}
-            {artist.salesHook}
-          </p>
+          <p className="book-line">{artist.headline}</p>
 
           {cancelled ? (
-            <div className="status-banner">Checkout cancelled — deposit not taken.</div>
-          ) : null}
-
-          {!hasInk ? (
-            <p className="ink-no-photos">
-              No site photos yet — form still works for the pitch.
-            </p>
+            <div className="status-banner">
+              Checkout cancelled — deposit not taken.
+            </div>
           ) : null}
 
           <BookingForm artist={artist} />
 
-          <details className="ink-more">
-            <summary>Studio notes</summary>
+          <p className="book-demo">
+            InkHold sales demo · {formatMoney(artist.depositCents)} hold
+          </p>
+
+          <details className="book-more">
+            <summary>About the studio</summary>
             <p>{artist.bio}</p>
             <p>{artist.locationNote}</p>
             <p>
               ~{formatMoney(artist.hourlyRateCents)}/hr ·{" "}
-              <Link href={`/dashboard/${artist.slug}`}>Dashboard</Link>
+              <Link href={`/dashboard/${artist.slug}`}>Artist dashboard</Link>
             </p>
           </details>
         </div>
