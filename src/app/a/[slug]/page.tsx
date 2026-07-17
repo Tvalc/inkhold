@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { DEMO_ARTISTS, getArtist, formatMoney } from "@/lib/artists";
 import { BookingForm } from "@/components/BookingForm";
+import { PortfolioGallery } from "@/components/PortfolioGallery";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -40,6 +41,8 @@ export default async function ArtistBookingPage({
             ))}
           </div>
         </div>
+
+        <PortfolioGallery artist={artist} />
 
         <div className="status-banner demo-banner">
           <strong>InkHold sales demo</strong> for {artist.studio} —{" "}

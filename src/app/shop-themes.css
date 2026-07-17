@@ -335,9 +335,87 @@
   --shop-hero-c: #2a1a22;
 }
 
+.portfolio {
+  margin: 0 0 1.75rem;
+}
+
+.portfolio-hero {
+  margin: 0 0 0.5rem;
+  overflow: hidden;
+  background: #0a0a0a;
+}
+
+.portfolio-hero-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 52vh;
+  object-fit: cover;
+}
+
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.5rem;
+}
+
+@media (min-width: 640px) {
+  .portfolio-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.portfolio-cell {
+  overflow: hidden;
+  background: #111;
+  aspect-ratio: 1;
+}
+
+.portfolio-cell-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.35s ease;
+}
+
+.portfolio-cell:hover .portfolio-cell-img {
+  transform: scale(1.04);
+}
+
+.portfolio-credit {
+  margin: 0.65rem 0 0;
+  font-size: 0.78rem;
+  color: var(--shop-muted, var(--steel));
+  line-height: 1.4;
+}
+
+.portfolio-credit a {
+  color: var(--shop-accent, var(--oxide));
+}
+
+.portfolio-empty {
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  border: 1px dashed color-mix(in srgb, var(--shop-accent, #c4122e) 40%, transparent);
+  font-size: 0.9rem;
+  color: var(--shop-muted, var(--steel));
+  line-height: 1.45;
+}
+
+.home-thumb {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  display: block;
+  margin: 0 0 0.85rem;
+  background: #111;
+}
+
 .home-card-hook {
   font-size: 0.88rem;
   color: var(--ink-soft);
   margin: 0.35rem 0 0;
   line-height: 1.4;
 }
+

@@ -59,6 +59,9 @@ export type Artist = {
   };
   /** Why this demo exists for the sales walk */
   salesHook: string;
+  /** Public site we pulled portfolio from (optional — filled via credit map) */
+  portfolioSource?: string;
+  portfolioSourceUrl?: string;
 };
 
 export type Booking = {
