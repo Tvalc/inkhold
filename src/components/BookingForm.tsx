@@ -20,6 +20,14 @@ export function BookingForm({ artist }: Props) {
     setLoading(true);
 
     const form = new FormData(e.currentTarget);
+    const extra = artist.extraQuestion
+      ? String(form.get(artist.extraQuestion.name) ?? "")
+      : "";
+    const descriptionBase = String(form.get("description") ?? "");
+    const description = extra
+      ? `${descriptionBase}\n\n[${artist.extraQuestion!.label}] ${extra}`
+      : descriptionBase;
+
     const payload = {
       artistSlug: artist.slug,
       clientName: String(form.get("clientName") ?? ""),
@@ -28,7 +36,7 @@ export function BookingForm({ artist }: Props) {
       placement: String(form.get("placement") ?? ""),
       size: String(form.get("size") ?? ""),
       budget: String(form.get("budget") ?? ""),
-      description: String(form.get("description") ?? ""),
+      description,
       referenceUrls: String(form.get("referenceUrls") ?? ""),
       preferredDates: String(form.get("preferredDates") ?? ""),
     };
@@ -82,19 +90,14 @@ export function BookingForm({ artist }: Props) {
         </label>
         <label>
           <span>Phone</span>
-          <input
-            name="clientPhone"
-            type="tel"
-            required
-            autoComplete="tel"
-          />
+          <input name="clientPhone" type="tel" required autoComplete="tel" />
         </label>
         <label>
           <span>Placement</span>
           <input
             name="placement"
             required
-            placeholder="e.g. outer forearm"
+            placeholder={artist.form.placementPlaceholder}
           />
         </label>
         <label>
@@ -129,9 +132,19 @@ export function BookingForm({ artist }: Props) {
           name="description"
           required
           rows={4}
-          placeholder="Style, subject, color vs blackwork, anything I should know…"
+          placeholder={artist.form.descriptionPlaceholder}
         />
       </label>
+
+      {artist.extraQuestion ? (
+        <label className="full">
+          <span>{artist.extraQuestion.label}</span>
+          <input
+            name={artist.extraQuestion.name}
+            placeholder={artist.extraQuestion.placeholder}
+          />
+        </label>
+      ) : null}
 
       <label className="full">
         <span>Reference links (optional)</span>
@@ -146,21 +159,19 @@ export function BookingForm({ artist }: Props) {
         <input
           name="preferredDates"
           required
-          placeholder="e.g. weekday evenings in August"
+          placeholder={artist.form.datesPlaceholder}
         />
       </label>
 
       {error ? <p className="form-error">{error}</p> : null}
 
       <button type="submit" className="btn-primary" disabled={loading}>
-        {loading
-          ? "Starting checkout…"
-          : `Pay ${formatMoney(artist.depositCents)} deposit to hold`}
+        {loading ? "Starting checkout…" : artist.form.ctaLabel}
       </button>
       <p className="form-note">
-        Deposit applies to your tattoo. No-shows forfeit the deposit per
-        studio policy.
+        {formatMoney(artist.depositCents)} deposit · {artist.sessionNote}
       </p>
+      <div className="policy-box">{artist.depositPolicy}</div>
     </form>
   );
 }

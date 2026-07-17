@@ -16,12 +16,12 @@ export default function HomePage() {
             Ink<span>Hold</span>
           </h1>
           <p className="hero-line">
-            One link in your Instagram bio. Client fills intake, pays the
-            deposit, signs the waiver. Your chair stays filled.
+            {DEMO_ARTISTS.length} customized Seattle demos — each shop gets its
+            own voice, theme, deposit policy, and intake questions.
           </p>
           <div className="hero-cta">
             <Link href="#demo" className="btn-primary">
-              {DEMO_ARTISTS.length} Seattle demo pages
+              Open the roster
             </Link>
             <Link href="/seattle" className="btn-ghost">
               Seattle launch plan
@@ -31,11 +31,11 @@ export default function HomePage() {
       </section>
 
       <section className="section" id="demo">
-        <h2>Every outreach target · live demo</h2>
+        <h2>Walk-in demos · not clones</h2>
         <p className="lede">
-          Open the shop&apos;s page on your phone when you walk in. Demo mode
-          skips Stripe — deposit marks paid and jumps to the waiver. Not
-          affiliated until they sign up.
+          Every page below has unique copy, colors, CTAs, and shop-specific
+          form fields pulled from real studio details. Flip between Alleged and
+          Anchor — they should not feel like the same template.
         </p>
 
         {groups.map((group) => (
@@ -50,11 +50,10 @@ export default function HomePage() {
                 >
                   <h3>{artist.studio}</h3>
                   <p className="artist-meta">
-                    {artist.name} · {formatMoney(artist.depositCents)} deposit
-                    <br />
+                    {artist.name} · {formatMoney(artist.depositCents)} ·{" "}
                     <span className="slug-hint">/a/{artist.slug}</span>
                   </p>
-                  <p>{artist.specialty}</p>
+                  <p className="home-card-hook">{artist.headline}</p>
                 </Link>
               ))}
             </div>
